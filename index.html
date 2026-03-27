@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ALA. — Moda & Beauty MX</title>
+<link href="https://fonts.googleapis.com/css2?family=Italiana&family=Tenor+Sans&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#fdf8f5;
+  --black:#1a1218;
+  --rose:#e8b4c0;
+  --rose-deep:#c97a90;
+  --rose-pale:#f5dde4;
+  --mauve:#9e7b8c;
+  --nude:#e8d5c8;
+  --nude-deep:#c4a896;
+  --cream:#faf4ef;
+  --dusty:#d4b8c4;
+  --text:#3a2d33;
+  --muted:#9a8a92;
+  --border:rgba(200,150,170,0.18);
+  --wa:#25D366;
+  --white:#fff;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Jost',sans-serif;
+  background:var(--bg);color:var(--text);
+  overflow-x:hidden;cursor:none;
+}
+
+/* CURSOR */
+.cur{width:8px;height:8px;background:var(--rose-deep);border-radius:50%;
+  position:fixed;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);
+  transition:width .15s,height .15s;}
+.cur-r{width:28px;height:28px;border:1px solid var(--rose-deep);border-radius:50%;
+  position:fixed;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);
+  opacity:.5;transition:all .1s ease;}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:500;height:62px;
+  padding:0 2.5rem;display:flex;align-items:center;justify-content:space-between;
+  background:rgba(253,248,245,0.9);backdrop-filter:blur(16px);
+  border-bottom:1px solid var(--border);
+}
+.logo{
+  font-family:'Italiana',serif;font-size:1.8rem;letter-spacing:0.1em;
+  color:var(--black);text-decoration:none;display:flex;align-items:baseline;gap:6px;
+}
+.logo sub{font-family:'Jost',sans-serif;font-size:0.55rem;letter-spacing:0.2em;
+  text-transform:uppercase;color:var(--rose-deep);font-weight:300;vertical-align:super}
+.nav-links{display:flex;gap:2.2rem;list-style:none}
+.nav-links a{
+  font-size:0.68rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--muted);text-decoration:none;font-weight:300;transition:color .2s;
+}
+.nav-links a:hover{color:var(--rose-deep)}
+.nav-r{display:flex;align-items:center;gap:10px}
+.nav-wa{
+  display:flex;align-items:center;gap:7px;
+  background:var(--rose-deep);color:#fff;font-size:0.68rem;
+  letter-spacing:0.15em;text-transform:uppercase;font-weight:300;
+  padding:9px 20px;text-decoration:none;
+  font-family:'Jost',sans-serif;transition:background .2s;cursor:none;
+}
+.nav-wa:hover{background:var(--mauve)}
+.ai-btn{
+  width:38px;height:38px;border-radius:50%;
+  border:1px solid var(--border);background:none;cursor:none;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--rose-deep);font-size:1rem;
+  transition:all .2s;position:relative;
+}
+.ai-btn:hover{background:var(--rose-pale);border-color:var(--rose)}
+.ai-dot{
+  position:absolute;top:6px;right:6px;
+  width:7px;height:7px;background:var(--rose-deep);border-radius:50%;
+  animation:pls 2s infinite;
+}
+@keyframes pls{0%,100%{opacity:1}50%{opacity:.3}}
+
+/* HERO SPLIT */
+.hero{min-height:100vh;display:grid;grid-template-columns:55% 45%;padding-top:62px}
+.hero-visual{
+  position:relative;overflow:hidden;
+  background:linear-gradient(150deg,#f5dde4 0%,#ead0d8 40%,#d4b8c4 100%);
+}
+.hero-visual-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.hero-visual-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,18,24,0.45) 0%,transparent 55%);
+}
+.hero-visual-badge{
+  position:absolute;bottom:2.5rem;left:2.5rem;
+  background:rgba(253,248,245,0.92);backdrop-filter:blur(8px);
+  padding:0.9rem 1.4rem;border-left:3px solid var(--rose-deep);
+}
+.hvb-label{font-size:0.62rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);font-weight:300}
+.hvb-val{font-family:'Italiana',serif;font-size:1.3rem;color:var(--black)}
+
+.hero-content{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:4rem 3rem;background:var(--cream);
+}
+.h-eye{font-size:0.62rem;letter-spacing:0.3em;text-transform:uppercase;
+  color:var(--rose-deep);margin-bottom:1.2rem;font-weight:300}
+.h-title{
+  font-family:'Italiana',serif;
+  font-size:clamp(2.8rem,4.5vw,5rem);line-height:1.02;
+  color:var(--black);margin-bottom:1.5rem;
+}
+.h-title em{color:var(--rose-deep);font-style:italic}
+.h-sub{
+  font-size:0.85rem;line-height:1.95;color:var(--muted);
+  max-width:340px;margin-bottom:2.5rem;font-weight:300;
+}
+.cta-row{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem}
+.btn-fill{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--rose-deep);color:#fff;
+  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
+  padding:13px 26px;border:none;cursor:none;
+  font-family:'Jost',sans-serif;font-weight:300;
+  text-decoration:none;transition:background .2s;
+}
+.btn-fill:hover{background:var(--mauve)}
+.btn-line{
+  display:inline-flex;align-items:center;gap:8px;
+  background:none;color:var(--black);
+  font-size:0.7rem;letter-spacing:0.18em;text-transform:uppercase;
+  padding:12px 22px;border:1px solid rgba(0,0,0,0.15);cursor:none;
+  font-family:'Jost',sans-serif;font-weight:300;
+  text-decoration:none;transition:all .2s;
+}
+.btn-line:hover{background:var(--black);color:#fff}
+
+/* SOCIALS ROW */
+.socials-row{
+  display:flex;align-items:center;gap:1.5rem;
+  padding-top:2rem;border-top:1px solid var(--border);
+}
+.socials-label{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);font-weight:300}
+.social-link{
+  display:flex;align-items:center;gap:6px;text-decoration:none;
+  font-size:0.72rem;color:var(--text);font-weight:300;
+  transition:color .2s;
+}
+.social-link:hover{color:var(--rose-deep)}
+.social-icon{width:28px;height:28px;border-radius:50%;
+  border:1px solid var(--border);display:flex;align-items:center;justify-content:center;
+  font-size:0.85rem;transition:all .2s;flex-shrink:0;}
+.social-link:hover .social-icon{background:var(--rose-pale);border-color:var(--rose)}
+
+/* MARQUEE */
+.mq-bar{
+  background:var(--black);padding:11px 0;overflow:hidden;white-space:nowrap;
+}
+.mq-track{display:inline-flex;animation:mqs 22s linear infinite}
+.mq-track span{font-size:0.65rem;letter-spacing:0.25em;text-transform:uppercase;
+  font-weight:200;padding:0 2.5rem;color:rgba(255,255,255,0.5)}
+.mq-track span.a{color:var(--rose)}
+@keyframes mqs{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* SECTION */
+.sec{padding:5.5rem 2.5rem}
+.sec-eye{font-size:0.62rem;letter-spacing:0.28em;text-transform:uppercase;
+  color:var(--rose-deep);margin-bottom:.6rem;font-weight:300}
+.sec-title{font-family:'Italiana',serif;font-size:clamp(1.9rem,3vw,2.8rem);
+  color:var(--black);line-height:1.1}
+.sec-title em{color:var(--rose-deep);font-style:italic}
+.sec-head-row{display:flex;align-items:flex-end;justify-content:space-between;
+  gap:2rem;flex-wrap:wrap;margin-bottom:3.5rem}
+.sec-desc{font-size:0.83rem;line-height:1.9;color:var(--muted);
+  max-width:360px;font-weight:300}
+
+/* PRODUCTS */
+.prod-grid{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:2px;
+  max-width:1100px;margin:0 auto;
+}
+.prod-card{position:relative;overflow:hidden;cursor:none;background:var(--nude)}
+.prod-card.tall{grid-row:span 2}
+.prod-card img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .6s cubic-bezier(.4,0,.2,1);
+  aspect-ratio:1;
+}
+.prod-card.tall img{aspect-ratio:unset;height:100%}
+.prod-card:hover img{transform:scale(1.06)}
+.prod-hover{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(26,18,24,0.82) 0%,rgba(26,18,24,0.1) 60%,transparent 100%);
+  opacity:0;transition:opacity .35s;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:1.5rem;
+}
+.prod-card:hover .prod-hover{opacity:1}
+.prod-cat{font-size:0.6rem;letter-spacing:0.2em;text-transform:uppercase;
+  color:var(--rose);margin-bottom:4px;font-weight:300}
+.prod-name{font-family:'Italiana',serif;font-size:1.15rem;color:#fff;margin-bottom:12px}
+.prod-wa{
+  display:inline-flex;align-items:center;gap:7px;align-self:flex-start;
+  background:var(--wa);color:#fff;font-size:0.65rem;
+  letter-spacing:0.12em;text-transform:uppercase;
+  padding:8px 15px;text-decoration:none;
+  font-family:'Jost',sans-serif;font-weight:300;transition:background .2s;cursor:none;
+}
+.prod-wa:hover{background:#1aad54}
+.prod-wa svg{width:13px;height:13px;fill:#fff;flex-shrink:0}
+
+/* BEAUTY BANNER */
+.beauty-strip{
+  background:var(--rose-pale);
+  padding:5rem 2.5rem;display:flex;align-items:center;
+  gap:4rem;flex-wrap:wrap;justify-content:center;
+}
+.beauty-left{max-width:480px}
+.beauty-left h2{
+  font-family:'Italiana',serif;
+  font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.05;
+  color:var(--black);margin-bottom:1rem;
+}
+.beauty-left h2 em{color:var(--rose-deep);font-style:italic}
+.beauty-left p{
+  font-size:0.85rem;line-height:1.95;color:var(--mauve);
+  font-weight:300;margin-bottom:2rem;
+}
+.beauty-pills{display:flex;gap:.6rem;flex-wrap:wrap}
+.pill{
+  background:rgba(201,122,144,0.12);
+  border:1px solid rgba(201,122,144,0.25);
+  color:var(--rose-deep);font-size:0.65rem;letter-spacing:0.15em;
+  text-transform:uppercase;padding:7px 14px;font-weight:300;
+  font-family:'Jost',sans-serif;
+}
+.beauty-right{display:flex;flex-direction:column;gap:1.2rem}
+.b-feat{display:flex;align-items:center;gap:14px}
+.b-feat-ic{
+  width:44px;height:44px;border-radius:50%;
+  background:rgba(201,122,144,0.15);border:1px solid rgba(201,122,144,0.2);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.1rem;flex-shrink:0;
+}
+.b-feat-txt h4{font-size:0.82rem;font-weight:400;color:var(--black);margin-bottom:2px}
+.b-feat-txt p{font-size:0.72rem;color:var(--mauve);font-weight:300}
+
+/* WA SECTION */
+.wa-sec{
+  background:var(--black);color:#fff;
+  padding:5.5rem 2.5rem;
+  display:flex;align-items:center;gap:4rem;
+  flex-wrap:wrap;justify-content:center;
+}
+.wa-sec-l{max-width:460px}
+.wa-sec-l h2{
+  font-family:'Italiana',serif;
+  font-size:clamp(2rem,3.5vw,3.5rem);line-height:1.05;margin-bottom:1rem;
+}
+.wa-sec-l h2 em{color:var(--wa);font-style:italic}
+.wa-sec-l p{font-size:0.85rem;line-height:1.95;color:rgba(255,255,255,0.5);
+  font-weight:300;margin-bottom:2rem}
+.wa-big{
+  display:inline-flex;align-items:center;gap:12px;
+  background:var(--wa);color:#fff;
+  font-size:0.82rem;letter-spacing:0.14em;text-transform:uppercase;
+  padding:16px 34px;text-decoration:none;
+  font-family:'Jost',sans-serif;font-weight:300;transition:background .2s;cursor:none;
+}
+.wa-big:hover{background:#1aad54}
+.wa-big svg{width:20px;height:20px;fill:#fff}
+.wa-sec-r{display:flex;flex-direction:column;gap:1.2rem}
+.wa-f{display:flex;align-items:center;gap:14px}
+.wa-f-ic{
+  width:42px;height:42px;border-radius:50%;
+  border:1px solid rgba(255,255,255,0.1);
+  display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;
+}
+.wa-f-tx h4{font-size:0.8rem;font-weight:400;margin-bottom:2px}
+.wa-f-tx p{font-size:0.7rem;color:rgba(255,255,255,0.4);font-weight:300}
+
+/* SOCIALS FULL */
+.socials-sec{
+  background:var(--cream);padding:5rem 2.5rem;text-align:center;
+}
+.socials-title{
+  font-family:'Italiana',serif;font-size:clamp(2rem,4vw,4rem);
+  color:var(--black);margin-bottom:.6rem;
+}
+.socials-sub{font-size:0.68rem;letter-spacing:0.22em;text-transform:uppercase;
+  color:var(--muted);font-weight:300;margin-bottom:3rem}
+.socials-cards{
+  display:flex;justify-content:center;gap:1.5rem;flex-wrap:wrap;
+}
+.soc-card{
+  display:flex;flex-direction:column;align-items:center;gap:12px;
+  background:#fff;border:1px solid var(--border);
+  padding:2rem 2.5rem;text-decoration:none;
+  transition:all .25s;cursor:none;min-width:160px;
+}
+.soc-card:hover{border-color:var(--rose);transform:translateY(-4px)}
+.soc-card-icon{
+  width:52px;height:52px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+}
+.soc-card-name{font-family:'Italiana',serif;font-size:1rem;color:var(--black)}
+.soc-card-handle{font-size:0.7rem;letter-spacing:0.1em;color:var(--muted);font-weight:300}
+.soc-card-cta{
+  font-size:0.62rem;letter-spacing:0.18em;text-transform:uppercase;
+  color:var(--rose-deep);font-weight:400;
+}
+
+/* FOOTER */
+footer{
+  background:var(--black);padding:2.5rem 2.5rem;
+  display:flex;align-items:center;justify-content:space-between;
+  flex-wrap:wrap;gap:1.2rem;
+}
+.f-logo{font-family:'Italiana',serif;font-size:1.4rem;letter-spacing:.1em;color:#fff}
+.f-mid{display:flex;flex-direction:column;align-items:center;gap:6px;text-align:center}
+.f-mid p{font-size:0.65rem;letter-spacing:0.1em;color:rgba(255,255,255,0.4);font-weight:300}
+.f-mid a{color:var(--rose);text-decoration:none}
+.f-soc{display:flex;gap:12px}
+.f-soc a{
+  width:36px;height:36px;border:1px solid rgba(255,255,255,0.1);border-radius:50%;
+  display:flex;align-items:center;justify-content:center;font-size:0.9rem;
+  color:rgba(255,255,255,0.5);text-decoration:none;transition:all .2s;cursor:none;
+}
+.f-soc a:hover{border-color:var(--rose);color:var(--rose)}
+
+/* WA FLOAT */
+.wa-float{
+  position:fixed;bottom:2rem;left:2rem;z-index:400;
+  display:flex;align-items:center;gap:10px;
+  background:var(--wa);color:#fff;padding:12px 20px;
+  text-decoration:none;font-size:0.72rem;letter-spacing:0.12em;
+  text-transform:uppercase;font-family:'Jost',sans-serif;font-weight:300;
+  cursor:none;transition:all .25s;
+  box-shadow:0 6px 28px rgba(37,211,102,0.35);
+  animation:fi .6s ease 1s both;
+}
+.wa-float:hover{background:#1aad54}
+.wa-float svg{width:17px;height:17px;fill:#fff;flex-shrink:0}
+.wa-pulse{
+  position:absolute;top:-4px;right:-4px;width:11px;height:11px;
+  background:#fff;border-radius:50%;animation:rp 2s infinite;
+}
+@keyframes rp{0%{transform:scale(1);opacity:1}100%{transform:scale(2.8);opacity:0}}
+@keyframes fi{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+
+/* AI CHAT */
+#ai-panel{
+  position:fixed;right:0;bottom:0;top:62px;width:375px;
+  background:#1a1218;color:#fff;z-index:600;
+  display:flex;flex-direction:column;
+  border-left:1px solid rgba(232,180,192,0.12);
+  transform:translateX(100%);transition:transform .4s cubic-bezier(.4,0,.2,1);
+}
+#ai-panel.open{transform:translateX(0)}
+.aip-head{
+  padding:1.25rem 1.5rem;
+  border-bottom:1px solid rgba(255,255,255,0.06);
+  display:flex;align-items:center;justify-content:space-between;
+}
+.aip-av{
+  width:34px;height:34px;border-radius:50%;
+  background:linear-gradient(135deg,var(--rose-deep),var(--mauve));
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Italiana',serif;font-size:1rem;color:#fff;flex-shrink:0;
+}
+.aip-nm{font-size:0.83rem;font-weight:400}
+.aip-st{font-size:0.65rem;color:rgba(255,255,255,0.35);font-weight:300}
+.aip-cls{background:none;border:none;color:rgba(255,255,255,0.35);
+  font-size:1rem;cursor:none;transition:color .2s}
+.aip-cls:hover{color:#fff}
+.aip-msgs{flex:1;overflow-y:auto;padding:1.25rem;
+  display:flex;flex-direction:column;gap:1rem;scroll-behavior:smooth}
+.am{display:flex;flex-direction:column;max-width:88%}
+.am.u{align-self:flex-end;align-items:flex-end}
+.am.a{align-self:flex-start}
+.am-b{padding:10px 14px;font-size:0.82rem;line-height:1.65}
+.am.u .am-b{background:var(--rose-deep);color:#fff;border-radius:16px 16px 4px 16px}
+.am.a .am-b{background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.88);
+  border:1px solid rgba(255,255,255,0.07);border-radius:16px 16px 16px 4px}
+.am-t{font-size:0.6rem;color:rgba(255,255,255,0.25);margin-top:3px}
+.aip-chips{padding:0 1.25rem .75rem;display:flex;flex-direction:column;gap:6px}
+.achip{
+  background:rgba(255,255,255,0.04);border:1px solid rgba(232,180,192,0.15);
+  color:rgba(255,255,255,0.55);font-size:0.72rem;padding:8px 12px;border-radius:20px;
+  cursor:none;font-family:'Jost',sans-serif;font-weight:300;text-align:left;transition:all .2s;
+}
+.achip:hover{border-color:var(--rose);color:var(--rose)}
+.aip-inp{
+  padding:1rem 1.25rem;border-top:1px solid rgba(255,255,255,0.06);
+  display:flex;gap:8px;align-items:flex-end;
+}
+#ai-txt{
+  flex:1;background:rgba(255,255,255,0.05);
+  border:1px solid rgba(255,255,255,0.08);color:#fff;
+  border-radius:12px;padding:10px 14px;font-size:0.82rem;
+  font-family:'Jost',sans-serif;font-weight:300;resize:none;outline:none;
+  line-height:1.5;min-height:42px;max-height:100px;
+}
+#ai-txt::placeholder{color:rgba(255,255,255,0.25)}
+#ai-txt:focus{border-color:var(--rose)}
+#ai-go{
+  width:38px;height:38px;border-radius:10px;
+  background:var(--rose-deep);border:none;color:#fff;
+  cursor:none;display:flex;align-items:center;justify-content:center;
+  font-size:1rem;transition:background .2s;flex-shrink:0;
+}
+#ai-go:hover{background:var(--mauve)}
+#ai-go:disabled{background:rgba(255,255,255,0.08);color:rgba(255,255,255,0.25)}
+.tdots{display:flex;gap:4px;padding:12px 14px;align-items:center}
+.tdots span{width:5px;height:5px;background:rgba(255,255,255,0.35);
+  border-radius:50%;animation:td 1.2s infinite}
+.tdots span:nth-child(2){animation-delay:.2s}
+.tdots span:nth-child(3){animation-delay:.4s}
+@keyframes td{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
+
+@media(max-width:860px){
+  .hero{grid-template-columns:1fr}
+  .hero-visual{min-height:55vh}
+  .prod-grid{grid-template-columns:repeat(2,1fr)}
+  .prod-card.tall{grid-row:span 1}
+  .nav-links{display:none}
+  #ai-panel{width:100%}
+}
+@media(max-width:540px){
+  .sec{padding:4rem 1.25rem}
+  nav{padding:0 1.25rem}
+  .prod-grid{grid-template-columns:1fr 1fr}
+  footer{flex-direction:column;text-align:center}
+  .f-mid{align-items:center}
+}
+</style>
+</head>
+<body>
+
+<div class="cur" id="c"></div>
+<div class="cur-r" id="cr"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="logo" href="#">ALA.<sub>shop mx</sub></a>
+  <ul class="nav-links">
+    <li><a href="#catalogo">Catálogo</a></li>
+    <li><a href="#beauty">Beauty</a></li>
+    <li><a href="#contacto">Contacto</a></li>
+    <li><a href="#redes">Redes</a></li>
+  </ul>
+  <div class="nav-r">
+    <a class="nav-wa" href="https://wa.me/525510305244?text=Hola! Vi su tienda y quiero hacer un pedido 🛍️" target="_blank">
+      WhatsApp
+    </a>
+    <button class="ai-btn" onclick="toggleAI()">
+      ✦<span class="ai-dot"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-visual">
+    <img class="hero-visual-img"
+      src="https://images.unsplash.com/photo-1487412947147-5cebf100ffc2?w=900&q=85"
+      alt="ALA Shop MX — Moda y Beauty"/>
+    <div class="hero-visual-overlay"></div>
+    <div class="hero-visual-badge">
+      <div class="hvb-label">Síguenos en</div>
+      <div class="hvb-val">@ala.shopmx</div>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="h-eye">Moda · Beauty · México ✦ 2025</p>
+    <h1 class="h-title">
+      Tu estilo,<br>
+      tu <em>brillo,</em><br>
+      tu ALA.
+    </h1>
+    <p class="h-sub">
+      Ropa, maquillaje y accesorios cuidadosamente seleccionados para la mujer que se atreve a brillar todos los días. Envíos a toda la República 🇲🇽
+    </p>
+    <div class="cta-row">
+      <a class="btn-fill" href="#catalogo">Ver colección →</a>
+      <a class="btn-line" href="https://wa.me/525510305244?text=Hola! Quiero conocer sus productos 💄" target="_blank">Pedir ahora</a>
+    </div>
+
+    <!-- SOCIALS ROW EN HERO -->
+    <div class="socials-row">
+      <span class="socials-label">Encuéntranos</span>
+      <a class="social-link" href="https://www.instagram.com/ala.shopmx/" target="_blank">
+        <span class="social-icon">📸</span>
+        Instagram
+      </a>
+      <a class="social-link" href="https://wa.me/525510305244" target="_blank">
+        <span class="social-icon">💬</span>
+        WhatsApp
+      </a>
+      <a class="social-link" href="https://www.tiktok.com/@ala.shopmx" target="_blank">
+        <span class="social-icon">🎵</span>
+        TikTok
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="mq-bar">
+  <div class="mq-track">
+    <span>ALA Shop MX</span><span class="a">✦</span>
+    <span>Moda & Beauty</span><span class="a">✦</span>
+    <span>Maquillaje Original</span><span class="a">✦</span>
+    <span>Ropa Femenina</span><span class="a">✦</span>
+    <span>@ala.shopmx</span><span class="a">✦</span>
+    <span>Envíos a todo México</span><span class="a">✦</span>
+    <span>Tendencias 2025</span><span class="a">✦</span>
+    <span>Pide por WhatsApp</span><span class="a">✦</span>
+    <span>ALA Shop MX</span><span class="a">✦</span>
+    <span>Moda & Beauty</span><span class="a">✦</span>
+    <span>Maquillaje Original</span><span class="a">✦</span>
+    <span>Ropa Femenina</span><span class="a">✦</span>
+    <span>@ala.shopmx</span><span class="a">✦</span>
+    <span>Envíos a todo México</span><span class="a">✦</span>
+    <span>Tendencias 2025</span><span class="a">✦</span>
+    <span>Pide por WhatsApp</span><span class="a">✦</span>
+  </div>
+</div>
+
+<!-- CATALOGO -->
+<section class="sec" id="catalogo">
+  <div class="sec-head-row">
+    <div>
+      <p class="sec-eye">Catálogo</p>
+      <h2 class="sec-title">Piezas que te <em>enamoran</em></h2>
+    </div>
+    <p class="sec-desc">Cada prenda y producto es elegido con amor 💕 Haz clic en el botón verde para pedirlo directo por WhatsApp.</p>
+  </div>
+
+  <div class="prod-grid">
+
+    <div class="prod-card tall">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=800&q=80" alt="Vestido ALA"/>
+      <div class="prod-hover">
+        <p class="prod-cat">Ropa</p>
+        <p class="prod-name">Vestido de temporada</p>
+        <a class="prod-wa" href="https://wa.me/525510305244?text=Hola! Me interesa el Vestido de temporada de ALA Shop 👗" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+          Pedir
+        </a>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?w=600&q=80" alt="Maquillaje ALA"/>
+      <div class="prod-hover">
+        <p class="prod-cat">Beauty</p>
+        <p class="prod-name">Paleta de sombras</p>
+        <a class="prod-wa" href="https://wa.me/525510305244?text=Hola! Me interesa la Paleta de sombras de ALA Shop 💄" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+          Pedir
+        </a>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <img src="https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=600&q=80" alt="Labiales ALA"/>
+      <div class="prod-hover">
+        <p class="prod-cat">Beauty</p>
+        <p class="prod-name">Labiales & Glosses</p>
+        <a class="prod-wa" href="https://wa.me/525510305244?text=Hola! Me interesan los Labiales de ALA Shop 💋" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+          Pedir
+        </a>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=600&q=80" alt="Blusa ALA"/>
+      <div class="prod-hover">
+        <p class="prod-cat">Ropa</p>
+        <p class="prod-name">Blusas & Tops</p>
+        <a class="prod-wa" href="https://wa.me/525510305244?text=Hola! Me interesan las Blusas de ALA Shop 👚" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+          Pedir
+        </a>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <img src="https://images.unsplash.com/photo-1583844669591-8a2e9f04a43d?w=600&q=80" alt="Skincare ALA"/>
+      <div class="prod-hover">
+        <p class="prod-cat">Skincare</p>
+        <p class="prod-name">Skincare & Cuidado</p>
+        <a class="prod-wa" href="https://wa.me/525510305244?text=Hola! Me interesa el Skincare de ALA Shop 🌸" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+          Pedir
+        </a>
+      </div>
+    </div>
+
+    <div class="prod-card">
+      <img src="https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=600&q=80" alt="Conjunto ALA"/>
+      <div class="prod-hover">
+        <p class="prod-cat">Ropa</p>
+        <p class="prod-name">Conjuntos</p>
+        <a class="prod-wa" href="https://wa.me/525510305244?text=Hola! Me interesan los Conjuntos de ALA Shop ✨" target="_blank">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+          Pedir
+        </a>
+      </div>
+    </div>
+
+  </div>
+  <div style="text-align:center;margin-top:3rem">
+    <a href="https://www.instagram.com/ala.shopmx/" target="_blank" class="btn-line">Ver más en @ala.shopmx →</a>
+  </div>
+</section>
+
+<!-- BEAUTY SECTION -->
+<section class="beauty-strip" id="beauty">
+  <div class="beauty-left">
+    <h2>Maquillaje que te hace <em>brillar</em> todos los días</h2>
+    <p>Desde labiales jugosos hasta paletas llenas de color. En ALA encontrarás todo lo que necesitas para tu rutina beauty, 100% originales y con envío a toda la República.</p>
+    <div class="beauty-pills">
+      <span class="pill">Maquillaje</span>
+      <span class="pill">Skincare</span>
+      <span class="pill">Ropa</span>
+      <span class="pill">Accesorios</span>
+      <span class="pill">Envíos MX</span>
+    </div>
+  </div>
+  <div class="beauty-right">
+    <div class="b-feat">
+      <div class="b-feat-ic">💄</div>
+      <div class="b-feat-txt">
+        <h4>Maquillaje 100% Original</h4>
+        <p>Todas las marcas son auténticas y verificadas</p>
+      </div>
+    </div>
+    <div class="b-feat">
+      <div class="b-feat-ic">👗</div>
+      <div class="b-feat-txt">
+        <h4>Moda femenina actual</h4>
+        <p>Tendencias 2025 seleccionadas para ti</p>
+      </div>
+    </div>
+    <div class="b-feat">
+      <div class="b-feat-ic">📦</div>
+      <div class="b-feat-txt">
+        <h4>Envíos a toda la República</h4>
+        <p>Recibe tu pedido donde estés en México</p>
+      </div>
+    </div>
+    <div class="b-feat">
+      <div class="b-feat-ic">✨</div>
+      <div class="b-feat-txt">
+        <h4>Atención personalizada</h4>
+        <p>Te ayudamos a elegir lo que mejor te queda</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WA SECTION -->
+<section class="wa-sec" id="contacto">
+  <div class="wa-sec-l">
+    <h2>Haz tu pedido<br>por <em>WhatsApp</em></h2>
+    <p>Sin complicaciones. Escríbenos, dinos qué quieres y te atendemos de inmediato con todo el amor 💕 Lunes a domingo.</p>
+    <a class="wa-big" href="https://wa.me/525510305244?text=Hola! Quiero hacer un pedido en ALA Shop 🛍️💕" target="_blank">
+      <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+      55 1030 5244
+    </a>
+  </div>
+  <div class="wa-sec-r">
+    <div class="wa-f">
+      <div class="wa-f-ic">⚡</div>
+      <div class="wa-f-tx"><h4>Respuesta inmediata</h4><p>Te contestamos rápido, sin esperas</p></div>
+    </div>
+    <div class="wa-f">
+      <div class="wa-f-ic">💳</div>
+      <div class="wa-f-tx"><h4>Múltiples formas de pago</h4><p>Transferencia, tarjeta, OXXO, efectivo</p></div>
+    </div>
+    <div class="wa-f">
+      <div class="wa-f-ic">🔒</div>
+      <div class="wa-f-tx"><h4>Compra segura</h4><p>Tu pedido protegido en todo momento</p></div>
+    </div>
+    <div class="wa-f">
+      <div class="wa-f-ic">🇲🇽</div>
+      <div class="wa-f-tx"><h4>Toda la República</h4><p>Enviamos a cualquier estado de México</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- REDES SOCIALES -->
+<section class="socials-sec" id="redes">
+  <p class="sec-eye" style="text-align:center">Conéctate con nosotras</p>
+  <h2 class="socials-title">Nuestras Redes</h2>
+  <p class="socials-sub">Síguenos para ver novedades, lookbooks y más ✨</p>
+
+  <div class="socials-cards">
+
+    <a class="soc-card" href="https://www.instagram.com/ala.shopmx/" target="_blank">
+      <div class="soc-card-icon" style="background:linear-gradient(45deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888);font-size:1.6rem;color:#fff">📸</div>
+      <div class="soc-card-name">Instagram</div>
+      <div class="soc-card-handle">@ala.shopmx</div>
+      <div class="soc-card-cta">Seguir →</div>
+    </a>
+
+    <a class="soc-card" href="https://wa.me/525510305244" target="_blank">
+      <div class="soc-card-icon" style="background:#25D366;font-size:1.6rem;color:#fff">💬</div>
+      <div class="soc-card-name">WhatsApp</div>
+      <div class="soc-card-handle">55 1030 5244</div>
+      <div class="soc-card-cta">Escribir →</div>
+    </a>
+
+    <a class="soc-card" href="https://www.tiktok.com/@ala.shopmx" target="_blank">
+      <div class="soc-card-icon" style="background:#010101;font-size:1.6rem;color:#fff">🎵</div>
+      <div class="soc-card-name">TikTok</div>
+      <div class="soc-card-handle">@ala.shopmx</div>
+      <div class="soc-card-cta">Ver videos →</div>
+    </a>
+
+    <a class="soc-card" href="https://www.facebook.com/ala.shopmx" target="_blank">
+      <div class="soc-card-icon" style="background:#1877f2;font-size:1.6rem;color:#fff">📘</div>
+      <div class="soc-card-name">Facebook</div>
+      <div class="soc-card-handle">ALA Shop MX</div>
+      <div class="soc-card-cta">Me gusta →</div>
+    </a>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="f-logo">ALA.</div>
+  <div class="f-mid">
+    <p>© 2025 ALA Shop MX — Moda & Beauty</p>
+    <p>Ciudad de México · <a href="https://wa.me/525510305244">55 1030 5244</a></p>
+  </div>
+  <div class="f-soc">
+    <a href="https://www.instagram.com/ala.shopmx/" target="_blank" title="Instagram">📸</a>
+    <a href="https://wa.me/525510305244" target="_blank" title="WhatsApp">💬</a>
+    <a href="https://www.tiktok.com/@ala.shopmx" target="_blank" title="TikTok">🎵</a>
+    <a href="https://www.facebook.com/ala.shopmx" target="_blank" title="Facebook">📘</a>
+  </div>
+</footer>
+
+<!-- WA FLOAT -->
+<a class="wa-float" href="https://wa.me/525510305244?text=Hola! Quiero hacer un pedido 🛍️💕" target="_blank">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.117.553 4.107 1.526 5.835L0 24l6.341-1.509A11.945 11.945 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.818 9.818 0 01-5.009-1.374l-.36-.212-3.767.897.924-3.668-.232-.377A9.793 9.793 0 012.182 12c0-5.418 4.4-9.818 9.818-9.818 5.418 0 9.818 4.4 9.818 9.818 0 5.418-4.4 9.818-9.818 9.818z"/></svg>
+  Pedir por WhatsApp
+  <span class="wa-pulse"></span>
+</a>
+
+<!-- AI PANEL -->
+<div id="ai-panel">
+  <div class="aip-head">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="aip-av">A</div>
+      <div>
+        <div class="aip-nm">ALA Beauty IA ✦</div>
+        <div class="aip-st" id="aist">En línea</div>
+      </div>
+    </div>
+    <button class="aip-cls" onclick="toggleAI()">✕</button>
+  </div>
+  <div class="aip-msgs" id="aip-msgs">
+    <div class="am a">
+      <div class="am-b">
+        ¡Hola hermosa! 💕 Soy la asistente IA de ALA Shop MX.<br><br>
+        Puedo ayudarte a encontrar el maquillaje o la ropa perfecta para ti, darte tips de beauty o resolver cualquier duda. Para hacer tu pedido te conecto directo con WhatsApp 🛍️
+      </div>
+      <span class="am-t">Ahora</span>
+    </div>
+  </div>
+  <div class="aip-chips" id="achips">
+    <button class="achip" onclick="cs(this)">¿Qué maquillaje tienen disponible?</button>
+    <button class="achip" onclick="cs(this)">Quiero un look para una noche de fiesta</button>
+    <button class="achip" onclick="cs(this)">¿Hacen envíos a mi estado?</button>
+  </div>
+  <div class="aip-inp">
+    <textarea id="ai-txt" placeholder="Escribe aquí..." rows="1" onkeydown="ak(event)" oninput="ar(this)"></textarea>
+    <button id="ai-go" onclick="as()">→</button>
+  </div>
+</div>
+
+<script>
+// CURSOR
+const c=document.getElementById('c'),cr=document.getElementById('cr');
+let rx=0,ry=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{cx=e.clientX;cy=e.clientY;c.style.left=cx+'px';c.style.top=cy+'px'});
+(function loop(){rx+=(cx-rx)*.12;ry+=(cy-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop)})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{c.style.width='5px';c.style.height='5px';cr.style.width='44px';cr.style.height='44px'});
+  el.addEventListener('mouseleave',()=>{c.style.width='8px';c.style.height='8px';cr.style.width='28px';cr.style.height='28px'});
+});
+
+// AI
+let open=false,loading=false;
+const hist=[];
+const SYS=`Eres la asistente beauty e IA de ALA Shop MX, una tienda mexicana en Instagram (@ala.shopmx) que vende maquillaje, ropa femenina, skincare y accesorios. Los pedidos se hacen por WhatsApp al 55 1030 5244.
+
+Categorías disponibles:
+- Maquillaje: paletas de sombras, labiales, glosses, bases, rubores, iluminadores
+- Skincare: cremas, sueros, limpiadores faciales
+- Ropa: vestidos, blusas, tops, conjuntos, faldas, pantalones
+- Accesorios varios
+
+Tu personalidad: amigable, cálida, fashionista, como una amiga que sabe de beauty y moda. Habla en español mexicano natural. Usa emojis con moderación 💄✨. Respuestas cortas (máx 3-4 oraciones). Cuando alguien quiera comprar, siempre recuérdale que puede pedir por WhatsApp al 55 1030 5244 o ver más en Instagram @ala.shopmx.`;
+
+function toggleAI(){open=!open;document.getElementById('ai-panel').classList.toggle('open',open)}
+function cs(b){document.getElementById('ai-txt').value=b.textContent;document.getElementById('achips').style.display='none';as()}
+function ak(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();as()}}
+function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,100)+'px'}
+
+function am(r,t){
+  const c=document.getElementById('aip-msgs'),d=document.createElement('div');
+  d.className='am '+(r==='user'?'u':'a');
+  const ts=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+  d.innerHTML=`<div class="am-b">${t.replace(/\n/g,'<br>')}</div><span class="am-t">${ts}</span>`;
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function showT(){
+  const c=document.getElementById('aip-msgs'),d=document.createElement('div');
+  d.className='am a';d.id='td';
+  d.innerHTML='<div class="am-b"><div class="tdots"><span></span><span></span><span></span></div></div>';
+  c.appendChild(d);c.scrollTop=c.scrollHeight;
+}
+function rmT(){const t=document.getElementById('td');if(t)t.remove()}
+
+async function as(){
+  if(loading)return;
+  const inp=document.getElementById('ai-txt');
+  const txt=inp.value.trim();if(!txt)return;
+  inp.value='';inp.style.height='auto';
+  document.getElementById('achips').style.display='none';
+  am('user',txt);hist.push({role:'user',content:txt});
+  loading=true;document.getElementById('ai-go').disabled=true;
+  document.getElementById('aist').textContent='Escribiendo...';showT();
+  try{
+    const r=await fetch('https://api.anthropic.com/v1/messages',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})
+    });
+    const data=await r.json();
+    const reply=data.content?.[0]?.text||'Ups, intenta de nuevo 💕';
+    rmT();hist.push({role:'assistant',content:reply});am('ai',reply);
+  }catch(e){
+    rmT();am('ai','Tuve un problema 😢 Escríbenos directo al WhatsApp 55 1030 5244 💚');
+  }
+  loading=false;document.getElementById('ai-go').disabled=false;
+  document.getElementById('aist').textContent='En línea';
+}
+</script>
+</body>
+</html>
