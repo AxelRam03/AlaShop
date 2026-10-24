@@ -819,8 +819,13 @@ function ar(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,
 function am(r,t){
   const c=document.getElementById('aip-msgs'),d=document.createElement('div');
   d.className='am '+(r==='user'?'u':'a');
-  const ts=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
-  d.innerHTML=`<div class="am-b">${t.replace(/\n/g,'<br>')}</div><span class="am-t">${ts}</span>`;
+  const bubble=document.createElement('div');
+  bubble.className='am-b';
+  bubble.textContent=t;
+  const time=document.createElement('span');
+  time.className='am-t';
+  time.textContent=new Date().toLocaleTimeString('es-MX',{hour:'2-digit',minute:'2-digit'});
+  d.append(bubble,time);
   c.appendChild(d);c.scrollTop=c.scrollHeight;
 }
 function showT(){
@@ -831,26 +836,42 @@ function showT(){
 }
 function rmT(){const t=document.getElementById('td');if(t)t.remove()}
 
-async function as(){
+function as(){
   if(loading)return;
   const inp=document.getElementById('ai-txt');
   const txt=inp.value.trim();if(!txt)return;
   inp.value='';inp.style.height='auto';
   document.getElementById('achips').style.display='none';
-  am('user',txt);hist.push({role:'user',content:txt});
+  am('user',txt);
   loading=true;document.getElementById('ai-go').disabled=true;
-  document.getElementById('aist').textContent='Escribiendo...';showT();
-  try{
-    const r=await fetch('https://api.anthropic.com/v1/messages',{
-      method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,system:SYS,messages:hist})
-    });
-    const data=await r.json();
-    const reply=data.content?.[0]?.text||'Ups, intenta de nuevo 💕';
-    rmT();hist.push({role:'assistant',content:reply});am('ai',reply);
-  }catch(e){
-    rmT();am('ai','Tuve un problema 😢 Escríbenos directo al WhatsApp 55 1030 5244 💚');
+  document.getElementById('aist').textContent='Preparando respuesta...';showT();
+
+  const q=txt.toLocaleLowerCase('es-MX');
+  let reply;
+  if(/env[ií]o|estado|rep[uú]blica|entrega/.test(q)){
+    reply='La página indica que ofrecen envíos en México, pero confirma cobertura, costo y tiempo directamente con la tienda antes de pagar. 💌';
+  }else if(/precio|costo|cu[aá]nto|disponible|stock|existencia/.test(q)){
+    reply='No tengo acceso al inventario ni a precios actualizados. Escríbenos por WhatsApp para confirmar disponibilidad y precio final antes de comprar. 🛍️';
+  }else if(/piel|skincare|crema|suero|limpiador/.test(q)){
+    reply='En la página encontrarás una sección de skincare y cuidado facial. Para confirmar marcas, ingredientes y existencias, consulta directamente a la tienda. 🌸';
+  }else if(/ropa|blusa|vestido|top|conjunto|falda|pantal[oó]n|moda/.test(q)){
+    reply='La tienda muestra categorías de ropa como blusas, tops y conjuntos. Las fotos son ilustrativas; confirma modelos, tallas y disponibilidad por WhatsApp. 👗';
+  }else if(/maquillaje|labial|gloss|sombra|base|rubor|beauty/.test(q)){
+    reply='La página muestra categorías de maquillaje, como labiales y glosses. Confirma marcas, tonos y disponibilidad con la tienda antes de realizar tu pedido. 💄';
+  }else if(/pedido|comprar|pagar|orden/.test(q)){
+    reply='Para hacer un pedido, abre WhatsApp y confirma precio, disponibilidad, envío y método de pago directamente con la tienda.';
+  }else{
+    reply='Puedo orientarte sobre maquillaje, skincare, ropa y pedidos. No tengo acceso al inventario en tiempo real; para una respuesta confirmada, escríbenos por WhatsApp. ✨';
   }
+  rmT();
+  am('ai',reply);
+  const link=document.createElement('a');
+  link.href='https://wa.me/525658143876?text='+encodeURIComponent('Hola, tengo una consulta sobre ALA Shop: '+txt);
+  link.target='_blank';link.rel='noopener noreferrer';link.className='am-b';
+  link.textContent='Continuar por WhatsApp';
+  const wrap=document.createElement('div');wrap.className='am a';wrap.appendChild(link);
+  document.getElementById('aip-msgs').appendChild(wrap);
+  document.getElementById('aip-msgs').scrollTop=document.getElementById('aip-msgs').scrollHeight;
   loading=false;document.getElementById('ai-go').disabled=false;
   document.getElementById('aist').textContent='En línea';
 }
